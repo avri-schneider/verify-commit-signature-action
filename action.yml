@@ -1,0 +1,12 @@
+name: 'Verify Commit Signatures'
+description: 'Fails if a commit isn’t signed with a non-exportable key'
+inputs:
+  GITHUB_TOKEN:
+    description: 'GitHub token'
+    required: true
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
+branding:
+  icon: 'user-check'
+  color: 'blue'
