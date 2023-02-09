@@ -4,11 +4,8 @@
   "description": "Verify Commit Signature Action",
   "main": "index.js",
   "scripts": {
-    "lint": "rome check .",
-    "format": "rome format . --write",
-    "check:format": "rome format .",
-    "prepare": "ncc build index.js -o dist --source-map --license licenses.txt && npm run format",
-    "all": "npm run lint && npm run prepare"
+    "prepare": "ncc build index.js -o dist --source-map --license licenses.txt",
+    "all": "npm run prepare"
   },
   "repository": {
     "type": "git",
