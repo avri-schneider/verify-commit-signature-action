@@ -1,0 +1,13 @@
+name: Verify commits
+on:
+  pull_request:
+    types: [opened, synchronize]
+jobs:
+  verify-commits:
+    runs-on: ubuntu-latest
+    steps:
+    - name: ""
+      uses: avri-schneider/verify-commit-signature-action@main
+      with:
+        USERS_DIR: '.GITHUB_SIGNATURE_VERIFICATION'
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
