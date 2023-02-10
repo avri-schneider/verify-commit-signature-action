@@ -10,7 +10,17 @@ jobs:
       uses: actions/checkout@v2
       with:
         ref: ${{ github.event.pull_request.head.sha }}
-    - name: ""
+    - name: Import certificates
+      run: |
+        for dir in $(ls ${{ inputs.USERS_DIR }}); do
+          echo "Importing certificates from directory $dir"
+          for file in $(ls ${{ inputs.USERS_DIR }}/$dir); do
+            echo "Importing certificate $file"
+            gpg --import inputs/public_keys/$dir/$file
+          done
+        done
+
+    - name: "Verify commits"
       uses: avri-schneider/verify-commit-signature-action@main
       with:
         USERS_DIR: '.GITHUB_SIGNATURE_VERIFICATION'
