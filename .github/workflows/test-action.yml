@@ -16,7 +16,7 @@ jobs:
           echo "Importing certificates from directory $dir"
           for file in $(ls .GITHUB_SIGNATURE_VERIFICATION/$dir); do
             echo "Importing certificate $file"
-            gpg --import .GITHUB_SIGNATURE_VERIFICATION/$dir/$dir/$file
+            gpg --import .GITHUB_SIGNATURE_VERIFICATION/$dir/$file
           done
         done
 
