@@ -4,6 +4,9 @@ inputs:
   GITHUB_TOKEN:
     description: 'GitHub token'
     required: true
+  USERS_DIR:
+    description: 'Public keys and attestation certs for authorized committers'
+    required: true
 runs:
   using: 'node16'
   main: 'dist/index.js'
