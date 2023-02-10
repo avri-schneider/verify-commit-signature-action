@@ -16,7 +16,7 @@ jobs:
           echo "Importing public keys from directory $dir"
           for file in $(ls .GITHUB_SIGNATURE_VERIFICATION/$dir); do
             echo "Extracting public key from signer certificate"
-            echo openssl x509 -pubkey -noout -in .GITHUB_SIGNATURE_VERIFICATION/$dir/signer.pem > signer_public_key.pem
+            echo openssl x509 -pubkey -noout -in .GITHUB_SIGNATURE_VERIFICATION/$dir/signer.pem
             openssl x509 -pubkey -noout -in .GITHUB_SIGNATURE_VERIFICATION/$dir/signer.pem > signer_public_key.pem
             echo "Importing certificate signer_public_key.pem"
             gpg --import signer_public_key.pem
