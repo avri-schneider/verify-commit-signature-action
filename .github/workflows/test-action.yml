@@ -14,14 +14,16 @@ jobs:
       run: |
         for dir in $(ls .GITHUB_SIGNATURE_VERIFICATION); do
           echo "Importing public keys from directory $dir"
-          for file in $(ls .GITHUB_SIGNATURE_VERIFICATION/$dir); do
-            echo "Extracting public key from signer certificate"
-            echo openssl x509 -pubkey -noout -in .GITHUB_SIGNATURE_VERIFICATION/$dir/signer.pem
-            openssl x509 -in .GITHUB_SIGNATURE_VERIFICATION/$dir/signer.pem -inform PEM -out public_key.gpg -outform DER
-            echo "Importing public_key.gpg"
-            gpg --import public_key.gpg
-          done
+          curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/users/avri-schneider/gpg_keys | jq -r '.[].raw_key'
         done
+#          for file in $(ls .GITHUB_SIGNATURE_VERIFICATION/$dir); do
+#            echo "Extracting public key from signer certificate"
+#            echo openssl x509 -pubkey -noout -in .GITHUB_SIGNATURE_VERIFICATION/$dir/signer.pem
+#            openssl x509 -in .GITHUB_SIGNATURE_VERIFICATION/$dir/signer.pem -inform PEM -out public_key.gpg -outform DER
+#            echo "Importing public_key.gpg"
+#            gpg --import public_key.gpg
+#          done
+#        done
 
     - name: "Verify commits"
       uses: avri-schneider/verify-commit-signature-action@main
