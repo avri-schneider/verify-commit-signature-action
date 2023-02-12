@@ -27,7 +27,7 @@ jobs:
         Passphrase: your_secret_password
         %commit
         EOF
-        gpg --lsign-key 4AEE18F83AFDEB23
+        echo "your_secret_password" | gpg --passphrase-fd 0 --batch --lsign-key 4AEE18F83AFDEB23
 
         for dir in $(ls .GITHUB_SIGNATURE_VERIFICATION); do
           echo "Importing public keys of $dir"
