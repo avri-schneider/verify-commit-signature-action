@@ -13,7 +13,7 @@ jobs:
     - name: Import certificates
       run: |
         echo import Github public GPG key
-        gpg --keyserver hkp://keys.gnupg.net --recv-keys 4AEE18F83AFDEB23
+        curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://github.com/web-flow.gpg | gpg --import
         gpg --batch --gen-key <<EOF
         %echo Generating a key with password protection
         Key-Type: RSA
