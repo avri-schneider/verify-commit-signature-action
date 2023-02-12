@@ -14,7 +14,7 @@ jobs:
       run: |
         for dir in $(ls .GITHUB_SIGNATURE_VERIFICATION); do
           echo "Importing public keys from directory $dir"
-          curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/users/avri-schneider/gpg_keys | jq -r '.[].raw_key'
+          curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/users/avri-schneider/gpg_keys | jq -r '.[].raw_key' | gpg --import
         done
 #          for file in $(ls .GITHUB_SIGNATURE_VERIFICATION/$dir); do
 #            echo "Extracting public key from signer certificate"
