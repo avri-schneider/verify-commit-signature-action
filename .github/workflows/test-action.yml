@@ -26,13 +26,13 @@ jobs:
         Passphrase: your_secret_password
         %commit
         EOF
+        gpg --keyserver hkp://keys.gnupg.net --recv-keys 4AEE18F83AFDEB23
+        gpg --lsign-key 4AEE18F83AFDEB23
 
         for dir in $(ls .GITHUB_SIGNATURE_VERIFICATION); do
           echo "Importing public keys of $dir"
           curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/users/avri-schneider/gpg_keys | jq -r '.[].raw_key' | gpg --import
         done
-#        gpg --keyserver hkp://keys.gnupg.net --recv-keys 4AEE18F83AFDEB23
-#        gpg --lsign-key 4AEE18F83AFDEB23
 #          for file in $(ls .GITHUB_SIGNATURE_VERIFICATION/$dir); do
 #            echo "Extracting public key from signer certificate"
 #            echo openssl x509 -pubkey -noout -in .GITHUB_SIGNATURE_VERIFICATION/$dir/signer.pem
