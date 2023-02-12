@@ -13,6 +13,7 @@ jobs:
     - name: Import certificates
       run: |
         echo import Github public GPG key
+        gpg --keyserver hkp://keys.gnupg.net --recv-keys 4AEE18F83AFDEB23
         gpg --batch --gen-key <<EOF
         %echo Generating a key with password protection
         Key-Type: RSA
@@ -26,7 +27,6 @@ jobs:
         Passphrase: your_secret_password
         %commit
         EOF
-        gpg --keyserver hkp://keys.gnupg.net --recv-keys 4AEE18F83AFDEB23
         gpg --lsign-key 4AEE18F83AFDEB23
 
         for dir in $(ls .GITHUB_SIGNATURE_VERIFICATION); do
