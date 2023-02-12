@@ -12,8 +12,10 @@ jobs:
         ref: ${{ github.event.pull_request.head.sha }}
     - name: Import certificates
       run: |
+        echo import Github public GPG key 
+        curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://github.com/web-flow.gpg | gpg --import
         for dir in $(ls .GITHUB_SIGNATURE_VERIFICATION); do
-          echo "Importing public keys from directory $dir"
+          echo "Importing public keys of $dir"
           curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/users/avri-schneider/gpg_keys | jq -r '.[].raw_key' | gpg --import
         done
 #          for file in $(ls .GITHUB_SIGNATURE_VERIFICATION/$dir); do
