@@ -13,7 +13,8 @@ jobs:
     - name: Import certificates
       run: |
         echo import Github public GPG key
-        gpg --batch --full-generate-key --yes <<EOF
+        gpg --batch --gen-key <<EOF
+        %echo Generating a key with password protection
         Key-Type: RSA
         Key-Length: 4096
         Subkey-Type: RSA
@@ -22,7 +23,10 @@ jobs:
         Name-Comment: GitHub Actions
         Name-Email: you@example.com
         Expire-Date: 0
+        Passphrase: your_secret_password
+        %commit
         EOF
+
         for dir in $(ls .GITHUB_SIGNATURE_VERIFICATION); do
           echo "Importing public keys of $dir"
           curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/users/avri-schneider/gpg_keys | jq -r '.[].raw_key' | gpg --import
