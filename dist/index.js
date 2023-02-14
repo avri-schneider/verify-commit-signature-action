@@ -11101,10 +11101,16 @@ async function run() {
 						},
 					},
 				});
+				console.log("gitVerifyCommitOutput:", gitVerifyCommitOutput);
 
 				// Extract the signature key fingerprint from the output of `git verify-commit`
-				const gitVerifyCommitFingerprint =
-					gitVerifyCommitOutput.match(/using RSA key (.*)/)[1];
+				const match = gitVerifyCommitOutput.match(/using RSA key (.*)/);
+				if (match) {
+				  const gitVerifyCommitFingerprint = match[1];
+				  // do something with the fingerprint
+				} else {
+				  // handle the case when the regular expression doesn't match
+				}
 
 				// Run `yk-attest-verify` to get the YubiKey OPGP attestation information
 				await exec.exec(
